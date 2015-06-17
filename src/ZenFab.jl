@@ -1,22 +1,16 @@
 module ZenFab
 
+#using Blink
+using Compat
+using Reactive
+using Mux
+using JSON
+using Markdown
+using Gadfly
 using Escher
+using Patchwork
+using Hiccup
 
-include("config.jl")
-
-include(Pkg.dir("Escher", "src", "cli", "serve.jl"))
-
-cd(Pkg.dir("ZenFab", "src"))
-
-escher_serve()
-
-using Blink
-a = Blink.init() # initialise the atom-shell process
-w = Window(a) # Open a new window
-loadurl(w, "localhost:5555/escher_machine_ui.jl") # Load a web pages
-
-while true
-    true
-end
+include("serve.jl")
 
 end # module
