@@ -11,6 +11,6 @@ using Escher
 using Patchwork
 using Hiccup
 
-include("serve.jl")
+include(Pkg.dir("Escher", "src", "cli", "serve.jl"))
 
 end # module
