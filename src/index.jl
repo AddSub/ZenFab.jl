@@ -53,7 +53,7 @@ function main(window)
                   hbox("Z: " |> width(4em), slider(0:0.1:100) >>> z_axis_inp)
                     |> packacross(center)
             ) |> pad(2em))
-        move_cmd = string("G1 X",z_axis," F10000\n")
+        move_cmd = string("G1 Z",z_axis," F10000\n")
         write(serial, move_cmd)
         @show move_cmd
         ui
