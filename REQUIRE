@@ -1,2 +1,4 @@
-GLFW
-Meshes
+julia 0.5
+SerialPorts
+JSON
+ArgParse

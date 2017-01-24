@@ -1,22 +1,15 @@
 module ZenFab
 
-using Escher
+using SerialPorts
+using JSON
+using ArgParse
 
+const VER = "0.0.1-pre"
+
+include("tinyg.jl")
+include("serial.jl")
+include("cmd.jl")
 include("config.jl")
-
-include(Pkg.dir("Escher", "src", "cli", "serve.jl"))
-
-cd(Pkg.dir("ZenFab", "src"))
-
-escher_serve()
-
-using Blink
-a = Blink.init() # initialise the atom-shell process
-w = Window(a) # Open a new window
-loadurl(w, "localhost:5555/escher_machine_ui.jl") # Load a web pages
-
-while true
-    true
-end
+include("feedrate.jl")
 
 end # module

@@ -8,16 +8,24 @@ Calling conventions are identical to `SerialPort`.
 """ ->
 function serialconsole(s::SerialPort)
     @async serialreader(s)
+    println("use \$close to close serial session")
     while true
         print_with_color(:magenta, "\nserial> ")
         c = readline()
+        c == "\$close\n" && return
         !isspace(c) && write(s, c) # Don't send newlines
         sleep(1) # wait 1 second to allow output
     end
 end
 
-function serialconsole(args...)
-    serialconsole(SerialPort(args...))
+function serialconsole(port::String, baud::Int, args...)
+    if !in(list_serialports(), port)
+        println("$port not connected")
+        return
+    end
+    s = SerialPort(port, baud, args...)
+    serialconsole(s)
+    close(s)
 end
 
 function serialreader(s::SerialPort)
@@ -55,7 +63,7 @@ function serialsend_proc(s::SerialPort, c::Channel, out::IO=STDOUT)
                     end
                 end
             end
-            sleep(0.05)
+            sleep(0.05) # TODO
             transmitting && isready(c) && break
         end
     end
